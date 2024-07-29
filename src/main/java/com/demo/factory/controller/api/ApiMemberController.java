@@ -55,7 +55,7 @@ public class ApiMemberController {
 
     @DeleteMapping(value = urlV1+"/{userId}")
     public void remove(@PathVariable("factoryNo") Long factoryNo, @PathVariable("userId") String userId) throws Exception {
-        Member member = memberRepository.findByUserIdAndSiteNo(userId,factoryNo).orElse(new Member());
+        Member member = memberRepository.findByUserIdAndFactoryNo(userId,factoryNo).orElse(new Member());
         memberService.removeByParent(factoryNo, member.getUserNo());
     }
 

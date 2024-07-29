@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ApiFactoryController {
-    private final FactoryService siteService;
+    private final FactoryService factoryService;
     private final ControllerUtils controllerUtils;
 
     private final String urlV1 = "/v1/factory";
@@ -41,7 +41,7 @@ public class ApiFactoryController {
 
     @GetMapping(value = {urlV1 +"/list"})
     public PaginationDto<FactoryDtoForList> listV1(@ModelAttribute("pgrq") PageRequestVO pageRequestVO) throws Exception {
-        Page<FactoryDtoForList> page = siteService.restListV1(pageRequestVO);
+        Page<FactoryDtoForList> page = factoryService.restListV1(pageRequestVO);
         PaginationDto<FactoryDtoForList> pagination = new PaginationDto<>(page);
         return pagination;
     }
@@ -52,7 +52,7 @@ public class ApiFactoryController {
         siteDtoForManager.setFactoryNo(null); //생성임을 명확히 한다.
         siteDtoForManager.setLogoFileImgName(LOGO_FILE_NAME); //dto에서는 불가하므로 외부에서 한다.
 
-        Long[] resultArray = siteService.restCreateV1(siteDtoForManager);
+        Long[] resultArray = factoryService.restCreateV1(siteDtoForManager);
         Result result = makeResult(resultArray);
 
         if (logoFile != null && logoFile.getSize() > 0) {
@@ -73,13 +73,13 @@ public class ApiFactoryController {
                 throw new LogoFileException("로그파일 등록오류 발생");
             }
         }
-        Long[] resultArray = siteService.restModifyV1(siteDtoForManager);
+        Long[] resultArray = factoryService.restModifyV1(siteDtoForManager);
         return makeResult(resultArray);
     }
 
     @DeleteMapping(value = urlV1+"/{factoryNo}")
     public void remove(@PathVariable("factoryNo") Long factoryNo) throws Exception {
-       siteService.remove(factoryNo);
+       factoryService.remove(factoryNo);
     }
 
     @ResponseBody

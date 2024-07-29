@@ -16,7 +16,7 @@ public class MemberDtoForFactoryManager {
     private String userName;
     private String defaultDashboardNo;
     private MemberAuthEnum auth;
-    private String siteNo;
+    private String factoryNo;
     private String createDatetime;
     private String lastModifyDatetime;
 
@@ -27,7 +27,7 @@ public class MemberDtoForFactoryManager {
         this.userName = member.getUserName();
         this.defaultDashboardNo = member.getDefaultDashboardNo();
         this.auth = member.getAuthList().get(0).getAuth();
-        this.siteNo = String.valueOf(member.getFactory().getFactoryNo());
+        this.factoryNo = String.valueOf(member.getFactory().getFactoryNo());
         this.createDatetime = String.valueOf(member.getCreateDatetime());
         this.lastModifyDatetime = String.valueOf(member.getLastModifyDatetime());
     }

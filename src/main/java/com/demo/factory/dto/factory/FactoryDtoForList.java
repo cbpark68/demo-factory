@@ -42,7 +42,7 @@ public class FactoryDtoForList {
         this.lastModifyDatetime = String.valueOf(factory.getLastModifyDatetime());
     }
 
-    public void setSiteManager(Member member) {
+    public void setFactoryManager(Member member) {
         this.userId = member.getUserId();
         this.userPw = member.getUserPw();
         this.userName = member.getUserName();

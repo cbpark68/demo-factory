@@ -35,9 +35,9 @@ public class ApiController {
 
     private final FacilityCodeRepository facilityCodeRepository;
 
-    private final FactoryRepository siteRepository;
+    private final FactoryRepository factoryRepository;
 
-    private final FactoryService siteService;
+    private final FactoryService factoryService;
 
     @GetMapping("/whois")
     @ResponseBody
@@ -68,15 +68,15 @@ public class ApiController {
         facilityRepository.deleteAll();
         facilityCodeRepository.deleteAll();
 
-        siteService.remove(4L);
-        siteService.remove(3L);
-        siteService.remove(2L);
-        siteService.remove(1L);
-        siteRepository.deleteAll();
+        factoryService.remove(4L);
+        factoryService.remove(3L);
+        factoryService.remove(2L);
+        factoryService.remove(1L);
+        factoryRepository.deleteAll();
 
-        siteRepository.insertFactory();
-        siteRepository.insertUser();
-        siteRepository.insertAuth();
+        factoryRepository.insertFactory();
+        factoryRepository.insertUser();
+        factoryRepository.insertAuth();
 
         String s2ServerFacilityCode = String.valueOf(facilityCodeService.create(new FacilityCodeDto("2", "server2factoryCode", "서버2설비코드", "{info}")));
         String s2LineFacilityCode = String.valueOf(facilityCodeService.create(new FacilityCodeDto("2", "line2factoryCode", "라인2설비코드", "{info}")));

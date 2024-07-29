@@ -68,7 +68,7 @@ public class CommonFileUtils {
 		}
 	}
 
-	public static void makeSiteDir(String uploadPath, String... paths) {
+	public static void makeFactoryDir(String uploadPath, String... paths) {
 		if (new File(paths[paths.length - 1]).exists()) {
 			return;
 		}

@@ -66,7 +66,7 @@ public class Member extends BaseDomain{
 		this.userName = memberDto.getUserName();
 		this.defaultDashboardNo = memberDto.getDefaultDashboardNo();
 		this.factory = new Factory(Long.valueOf(memberDto.getFactory().getFactoryNo()));
-		setMemberAuth(new MemberAuth(MemberAuthEnum.ROLE_SITE_USER));
+		setMemberAuth(new MemberAuth(MemberAuthEnum.ROLE_FACTORY_USER));
 	}
 
 	public Member(FactoryDtoForManager siteDtoForManager) {
@@ -74,7 +74,7 @@ public class Member extends BaseDomain{
 		this.userPw = siteDtoForManager.getUserPw();
 		this.userName = siteDtoForManager.getUserName();
 		this.factory = new Factory(Long.valueOf(siteDtoForManager.getFactoryNo()));
-		setMemberAuth(new MemberAuth(MemberAuthEnum.ROLE_SITE_MANAGER));
+		setMemberAuth(new MemberAuth(MemberAuthEnum.ROLE_FACTORY_MANAGER));
 	}
 
 	public Member modify(Member member, MemberDto memberDto) {

@@ -40,7 +40,7 @@ class FactoryServiceImplTest {
         factoryService.remove(2L);
         Factory site = factoryService.find(2L);
         assertThat(site.getFactoryNo()).isNull();
-        List<Member> memberByList = memberRepository.findBySiteNo(2L);
+        List<Member> memberByList = memberRepository.findByFactoryNo(2L);
         assertThat(memberByList.size()).isEqualTo(0);
     }
 
@@ -64,7 +64,7 @@ class FactoryServiceImplTest {
 
         Member member = memberRepository.findByUserId("testSiteManager").orElse(new Member());
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //등록된 사용자는 반드시 팩토리관리자 권한을 가져야 한다.
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //등록된 사용자는 반드시 팩토리관리자 권한을 가져야 한다.
     }
     @Test
     @DisplayName("서비스 수정 테스트")
@@ -88,14 +88,14 @@ class FactoryServiceImplTest {
         Member member2 = memberRepository.findByUserId("kfactory").orElse(new Member());
         assertThat(member2.getUserName()).isEqualTo("변경됨");
         assertThat(member2.getUserPw()).isEqualTo("12341234");
-        assertThat(member2.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER);
+        assertThat(member2.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER);
     }
 
     @Test
     @DisplayName("서비스 조회 테스트")
     void find() throws Exception {
         Factory site = factoryService.find(2L);
-        List<Member> memberList = memberRepository.findBySiteNo(site.getFactoryNo());
+        List<Member> memberList = memberRepository.findByFactoryNo(site.getFactoryNo());
         assertThat(memberList.size()).isEqualTo(2);
     }
 

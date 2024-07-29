@@ -67,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Long restModify(MemberDto memberDto) throws Exception {
 		//변경감지로 save()호출 없음
-		Member oldMember  = memberRepository.findByUserIdAndSiteNo(memberDto.getUserId(), Long.valueOf(memberDto.getFactory().getFactoryNo())).orElse(new Member());
+		Member oldMember  = memberRepository.findByUserIdAndFactoryNo(memberDto.getUserId(), Long.valueOf(memberDto.getFactory().getFactoryNo())).orElse(new Member());
 		Member newMember = new Member().modify(oldMember, memberDto);
 		return newMember.getUserNo();
 	}
@@ -113,10 +113,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member findFactoryManager(Long factoryNo) {
-		List<Member> memberList = memberRepository.findBySiteNo(factoryNo);
+		List<Member> memberList = memberRepository.findByFactoryNo(factoryNo);
 		for (Member member : memberList) {
 			if (member.getUserNo() != null) {
-				if (member.getAuthList().get(0).getAuth().equals(MemberAuthEnum.ROLE_SITE_MANAGER)) {
+				if (member.getAuthList().get(0).getAuth().equals(MemberAuthEnum.ROLE_FACTORY_MANAGER)) {
 					return member;
 				}
 			}

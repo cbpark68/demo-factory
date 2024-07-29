@@ -26,11 +26,11 @@ insert into dt_user
 insert into dt_user_auth
 (user_auth_no,user_no,auth) values
 (1,1,"ROLE_ADMIN"),
-(2,2,"ROLE_SITE_MANAGER"),
-(3,3,"ROLE_SITE_MANAGER"),
-(4,4,"ROLE_SITE_USER"),
-(5,5,"ROLE_SITE_USER"),
-(6,6,"ROLE_SITE_MANAGER");
+(2,2,"ROLE_FACTORY_MANAGER"),
+(3,3,"ROLE_FACTORY_MANAGER"),
+(4,4,"ROLE_FACTORY_USER"),
+(5,5,"ROLE_FACTORY_USER"),
+(6,6,"ROLE_FACTORY_MANAGER");
 
 insert into dt_facility_code
 (facility_code_no,facility_code,facility_code_name,factory_no,facility_code_info) values

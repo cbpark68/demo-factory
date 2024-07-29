@@ -207,7 +207,7 @@ class ApiFactoryControllerByMockMvcTest {
         assertThat(member.getUserId()).isEqualTo("testSiteManager");
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getUserPw()).isEqualTo("1234");
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
 
         url = "http://localhost:" + port + "/api/v1/factory/"+result.factoryNo()+"/logo";
         mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -220,15 +220,15 @@ class ApiFactoryControllerByMockMvcTest {
     void modifiedByMockMvc() throws Exception {
         String url = "http://localhost:" + port + "/api/v0/factory";
 
-        FactoryDtoForManager siteDto = new FactoryDtoForManager();
-        siteDto.setFactoryNo("2");
-        siteDto.setFactoryName("테스트팩토리");
-        siteDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        siteDto.setUserId("kfactory");
-        siteDto.setUserPw("12341234");
-        siteDto.setUserName("테스트매니저");
+        FactoryDtoForManager factoryDto = new FactoryDtoForManager();
+        factoryDto.setFactoryNo("2");
+        factoryDto.setFactoryName("테스트팩토리");
+        factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
+        factoryDto.setUserId("kfactory");
+        factoryDto.setUserPw("12341234");
+        factoryDto.setUserName("테스트매니저");
 
-        String strDtoForString = objectMapper.writeValueAsString(siteDto);
+        String strDtoForString = objectMapper.writeValueAsString(factoryDto);
 
         MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
                 strDtoForString.getBytes(StandardCharsets.UTF_8));
@@ -280,15 +280,15 @@ class ApiFactoryControllerByMockMvcTest {
                 .andReturn().getResponse().getContentAsString();
 
         Result result = objectMapper.readValue(contentAsString, Result.class);
-        Factory site = factoryService.find(Long.valueOf(result.factoryNo));
-        assertThat(site.getFactoryNo()).isEqualTo(2L);
-        assertThat(site.getFactoryName()).isEqualTo("테스트팩토리");
-        assertThat(site.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE); //변경되지 않아야 정상
+        Factory factory = factoryService.find(Long.valueOf(result.factoryNo));
+        assertThat(factory.getFactoryNo()).isEqualTo(2L);
+        assertThat(factory.getFactoryName()).isEqualTo("테스트팩토리");
+        assertThat(factory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE); //변경되지 않아야 정상
         Member member = memberService.find(Long.valueOf(result.userNo));
         assertThat(member.getUserId()).isEqualTo("kfactory");
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getUserPw()).isEqualTo("12341234");
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
 
         url = "http://localhost:" + port + "/api/v1/factory/"+result.factoryNo()+"/logo";
         mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -312,8 +312,8 @@ class ApiFactoryControllerByMockMvcTest {
         )
         .andReturn().getResponse().getContentAsString();
 
-        Factory site = factoryService.find(2L);
-        assertThat(site.getFactoryNo()).isNull();
+        Factory factory = factoryService.find(2L);
+        assertThat(factory.getFactoryNo()).isNull();
     }
 
     @Test
@@ -376,34 +376,34 @@ class ApiFactoryControllerByMockMvcTest {
     void createdByMockMvcWithoutLogo() throws Exception {
         String url = "http://localhost:" + port + "/api/v0/factory";
 
-        FactoryDtoForManager siteDto = new FactoryDtoForManager();
-        siteDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
-        siteDto.setFactoryName("테스트팩토리");
-        siteDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        siteDto.setUserId("testSiteManager");
-        siteDto.setUserPw("1234");
-        siteDto.setUserName("테스트매니저");
+        FactoryDtoForManager factoryDto = new FactoryDtoForManager();
+        factoryDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
+        factoryDto.setFactoryName("테스트팩토리");
+        factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
+        factoryDto.setUserId("testSiteManager");
+        factoryDto.setUserPw("1234");
+        factoryDto.setUserName("테스트매니저");
 
-        String siteDtoAsString = objectMapper.writeValueAsString(siteDto);
+        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
-        MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
+        MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
                 siteDtoAsString.getBytes(StandardCharsets.UTF_8));
 
         String contentAsString = mockMvc.perform(multipart(url) //method: create
-                        .file(sitePart)
+                        .file(factoryPart)
                         .contentType("multipart/form-data"))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn().getResponse().getContentAsString();
 
         Result result = objectMapper.readValue(contentAsString, Result.class);
-        Factory site = factoryService.find(Long.valueOf(result.factoryNo));
-        assertThat(site.getFactoryName()).isEqualTo("테스트팩토리");
-        assertThat(site.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE);
+        Factory factory = factoryService.find(Long.valueOf(result.factoryNo));
+        assertThat(factory.getFactoryName()).isEqualTo("테스트팩토리");
+        assertThat(factory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE);
         Member member = memberService.find(Long.valueOf(result.userNo));
         assertThat(member.getUserId()).isEqualTo("testSiteManager");
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getUserPw()).isEqualTo("1234");
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
 
     }
 
@@ -413,17 +413,17 @@ class ApiFactoryControllerByMockMvcTest {
     void modifiedByMockMvcWithoutLogo() throws Exception {
         String url = "http://localhost:" + port + "/api/v0/factory";
 
-        FactoryDtoForManager siteDto = new FactoryDtoForManager();
-        siteDto.setFactoryNo("2");
-        siteDto.setFactoryName("테스트팩토리");
-        siteDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        siteDto.setUserId("kfactory");
-        siteDto.setUserPw("admin");
-        siteDto.setUserName("테스트매니저");
+        FactoryDtoForManager factoryDto = new FactoryDtoForManager();
+        factoryDto.setFactoryNo("2");
+        factoryDto.setFactoryName("테스트팩토리");
+        factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
+        factoryDto.setUserId("kfactory");
+        factoryDto.setUserPw("admin");
+        factoryDto.setUserName("테스트매니저");
 
-        String strDtoForString = objectMapper.writeValueAsString(siteDto);
+        String strDtoForString = objectMapper.writeValueAsString(factoryDto);
 
-        MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
+        MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
                 strDtoForString.getBytes(StandardCharsets.UTF_8));
 
         MockMultipartHttpServletRequestBuilder builder = RestDocumentationRequestBuilders.multipart(url);
@@ -437,21 +437,21 @@ class ApiFactoryControllerByMockMvcTest {
         });
 
         String contentAsString = mockMvc.perform(builder  //method: modify
-                        .file(sitePart)
+                        .file(factoryPart)
                         .contentType("multipart/form-data"))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn().getResponse().getContentAsString();
 
         Result result = objectMapper.readValue(contentAsString, Result.class);
-        Factory site = factoryService.find(Long.valueOf(result.factoryNo));
-        assertThat(site.getFactoryNo()).isEqualTo(2L);
-        assertThat(site.getFactoryName()).isEqualTo("테스트팩토리");
-        assertThat(site.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE); //변경되지 않아야 정상
+        Factory factory = factoryService.find(Long.valueOf(result.factoryNo));
+        assertThat(factory.getFactoryNo()).isEqualTo(2L);
+        assertThat(factory.getFactoryName()).isEqualTo("테스트팩토리");
+        assertThat(factory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE); //변경되지 않아야 정상
         Member member = memberService.find(Long.valueOf(result.userNo));
         assertThat(member.getUserId()).isEqualTo("kfactory");
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getUserPw()).isEqualTo("admin");
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
 
     }
 
@@ -461,21 +461,21 @@ class ApiFactoryControllerByMockMvcTest {
     void createdByMockMvcWithoutManager() throws Exception {
         String url = "http://localhost:" + port + "/api/v0/factory";
 
-        FactoryDtoForManager siteDto = new FactoryDtoForManager();
-        siteDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
-        siteDto.setFactoryName("테스트팩토리");
-        siteDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        siteDto.setUserId("testSiteManager");
-        siteDto.setUserPw("1234"); //공백일수 없다.
-        siteDto.setUserName(""); //공백일수 없다.
+        FactoryDtoForManager factoryDto = new FactoryDtoForManager();
+        factoryDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
+        factoryDto.setFactoryName("테스트팩토리");
+        factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
+        factoryDto.setUserId("testSiteManager");
+        factoryDto.setUserPw("1234"); //공백일수 없다.
+        factoryDto.setUserName(""); //공백일수 없다.
 
-        String siteDtoAsString = objectMapper.writeValueAsString(siteDto);
+        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
-        MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
+        MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
                 siteDtoAsString.getBytes(StandardCharsets.UTF_8));
 
         String contentAsString = mockMvc.perform(multipart(url) //method: create
-                        .file(sitePart)
+                        .file(factoryPart)
                         .contentType("multipart/form-data"))
                 .andExpect(status().is5xxServerError())
                 .andReturn().getResponse().getContentAsString();
@@ -492,9 +492,9 @@ class ApiFactoryControllerByMockMvcTest {
     void createdByMockMvcWithoutDto() throws Exception {
         String url = "http://localhost:" + port + "/api/v0/factory";
 
-        FactoryDtoForManager siteDto = new FactoryDtoForManager();
+        FactoryDtoForManager factoryDto = new FactoryDtoForManager();
 
-        String siteDtoAsString = objectMapper.writeValueAsString(siteDto);
+        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
         MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
                 siteDtoAsString.getBytes(StandardCharsets.UTF_8));

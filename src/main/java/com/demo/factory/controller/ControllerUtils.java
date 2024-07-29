@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public class ControllerUtils {
     private final MemberRepository memberRepository;
-    private final FactoryService siteService;
+    private final FactoryService factoryService;
 
     @Value("${com.demofactory.logo-file-name}")
     private String LOGO_FILE_NAME;
@@ -62,7 +62,7 @@ public class ControllerUtils {
         String createdFileName = LOGO_FILE_NAME;
 
         String siteNoStr = String.valueOf(siteNo);
-        CommonFileUtils.makeSiteDir(LOGO_UPLOAD_PATH, siteNoStr, siteNoStr + File.separator + "logo");
+        CommonFileUtils.makeFactoryDir(LOGO_UPLOAD_PATH, siteNoStr, siteNoStr + File.separator + "logo");
         String uploadPath = LOGO_UPLOAD_PATH + File.separator + siteNo + File.separator + "logo";
         File target = new File(uploadPath, createdFileName);
 
@@ -75,7 +75,7 @@ public class ControllerUtils {
         String siteNoStr = String.valueOf(siteNo);
         String uploadPath = MODEL_UPLOAD_PATH + File.separator + siteNo + File.separator + "model";
         CommonFileUtils.deleteDir(uploadPath);
-        CommonFileUtils.makeSiteDir(MODEL_UPLOAD_PATH, siteNoStr, siteNoStr + File.separator + "model");
+        CommonFileUtils.makeFactoryDir(MODEL_UPLOAD_PATH, siteNoStr, siteNoStr + File.separator + "model");
         File target = new File(uploadPath, originalName);
         FileCopyUtils.copy(fileData, target);
         CommonFileUtils.unzipFile(Paths.get(uploadPath + File.separator + originalName), Paths.get(uploadPath));
@@ -84,7 +84,7 @@ public class ControllerUtils {
 
     public ResponseEntity<byte[]> getLogoFile(Long siteNo) throws Exception {
         ResponseEntity<byte[]> entity = null;
-        String logoFileName = siteService.getLogoFileName(siteNo);
+        String logoFileName = factoryService.getLogoFileName(siteNo);
 
         try {
             String formatName = logoFileName.substring(logoFileName.lastIndexOf(".") + 1);

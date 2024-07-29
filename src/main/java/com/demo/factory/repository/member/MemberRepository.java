@@ -30,13 +30,13 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 	@Query("select m from Member m " +
 			" join fetch m.factory f " +
 			" where f.factoryNo = :factoryNo")
-	public List<Member> findBySiteNo(Long factoryNo);
+	public List<Member> findByFactoryNo(Long factoryNo);
 
 	@Query("select m from Member m " +
 			" join fetch m.factory f " +
 			" where m.userId = :userId " +
 			" and f.factoryNo = :factoryNo ")
-	public Optional<Member> findByUserIdAndSiteNo(String userId, Long factoryNo);
+	public Optional<Member> findByUserIdAndFactoryNo(String userId, Long factoryNo);
 
 	@Query("select m from Member m " +
 			" join fetch m.factory f " +

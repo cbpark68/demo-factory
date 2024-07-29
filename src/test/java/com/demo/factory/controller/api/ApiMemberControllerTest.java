@@ -134,7 +134,7 @@ class ApiMemberControllerTest {
         assertThat(memberDto.getUserNo()).isEqualTo("4");
         assertThat(memberDto.getUserId()).isEqualTo("kfactory1");
         assertThat(memberDto.getUserPw()).isEqualTo("admin");
-        assertThat(memberDto.getAuth()).isIn(MemberAuthEnum.ROLE_SITE_USER);
+        assertThat(memberDto.getAuth()).isIn(MemberAuthEnum.ROLE_FACTORY_USER);
     }
 
 
@@ -230,7 +230,7 @@ class ApiMemberControllerTest {
         assertThat(member.getUserName()).isEqualTo("테스트유저");
         assertThat(member.getUserPw()).isEqualTo("1234");
         assertThat(member.getDefaultDashboardNo()).isEqualTo("999");
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_USER); //등록된 사용자권한은 반드시 팩토리사용자권한 이어야 함.
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_USER); //등록된 사용자권한은 반드시 팩토리사용자권한 이어야 함.
     }
 
 
@@ -282,7 +282,7 @@ class ApiMemberControllerTest {
         assertThat(member.getUserName()).isEqualTo("테스트유저");
         assertThat(member.getDefaultDashboardNo()).isEqualTo("999");
         assertThat(member.getFactory().getFactoryNo()).isEqualTo(2);
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //사용자권한은 변경되지 않아야 한다.
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 변경되지 않아야 한다.
     }
 
 
@@ -313,7 +313,7 @@ class ApiMemberControllerTest {
     @Test
     @WithMockUser(username = "admin",password = "1234",roles = {"ADMIN"})
     @DisplayName("api 사용자가 있지만 해당팩토리에 없는 사용자 삭제 테스트")
-    void removeForWrongSite() throws Exception {
+    void removeForWrongFactory() throws Exception {
         String url = "http://localhost:" + port + "/api/v1/factory/2/user/admin";
         mockMvc.perform(MockMvcRequestBuilders.delete(url))
                 .andExpect(status().isOk());
@@ -398,7 +398,7 @@ class ApiMemberControllerTest {
         assertThat(member.getUserName()).isEqualTo("Site Manager");
         assertThat(member.getUserPw()).isEqualTo("admin");
         assertThat(member.getFactory().getFactoryNo()).isEqualTo(2);
-        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_SITE_MANAGER); //사용자권한은 변경되지 않아야 한다.
+        assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 변경되지 않아야 한다.
     }
 
 }

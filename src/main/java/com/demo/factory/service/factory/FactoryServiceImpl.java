@@ -76,7 +76,7 @@ public class FactoryServiceImpl implements FactoryService {
         //변경감지로 save()호출 없음
         Factory oldSite = factoryRepository.findByPk(Long.valueOf(factoryDtoForManager.getFactoryNo())).orElse(new Factory());
         Factory newSite = new Factory().modify(oldSite, factoryDtoForManager);
-        Member oldMember = memberRepository.findByUserIdAndSiteNo(factoryDtoForManager.getUserId(), Long.valueOf(factoryDtoForManager.getFactoryNo())).orElse(new Member());
+        Member oldMember = memberRepository.findByUserIdAndFactoryNo(factoryDtoForManager.getUserId(), Long.valueOf(factoryDtoForManager.getFactoryNo())).orElse(new Member());
         Member newMember = new Member().modify(oldMember, new MemberDto(factoryDtoForManager));
         return new Long[]{newSite.getFactoryNo(), newMember.getUserNo()};
     }
@@ -112,7 +112,7 @@ public class FactoryServiceImpl implements FactoryService {
         Page<FactoryDtoForList> siteDtoForList = factoryRepository.getSearchRestPageV1(searchType, keyword, pageRequest);
         siteDtoForList.getContent().forEach(content -> {
             try {
-                content.setSiteManager(memberService.findFactoryManager(Long.valueOf(content.getFactoryNo())));
+                content.setFactoryManager(memberService.findFactoryManager(Long.valueOf(content.getFactoryNo())));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

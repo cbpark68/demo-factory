@@ -45,7 +45,7 @@ public class FactoryDto {
     @Transient
     private MultipartFile logoFile;
 
-    private MemberDtoForFactoryManager siteManager;
+    private MemberDtoForFactoryManager factoryManager;
 
     private List<MemberDto> memberDtoList = new ArrayList<>();
 
@@ -59,8 +59,8 @@ public class FactoryDto {
         List<Member> memberList = factory.getMemberList();
         for (Member member : memberList) {
             this.memberDtoList.add(new MemberDto(member));
-            if (member.getAuthList().get(0).getAuth().equals(MemberAuthEnum.ROLE_SITE_MANAGER)) {
-                this.siteManager = new MemberDtoForFactoryManager(member);
+            if (member.getAuthList().get(0).getAuth().equals(MemberAuthEnum.ROLE_FACTORY_MANAGER)) {
+                this.factoryManager = new MemberDtoForFactoryManager(member);
             }
         }
     }
