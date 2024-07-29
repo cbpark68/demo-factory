@@ -1,4 +1,4 @@
-= Digital-Twin API 규격서
+= 데모 팩토리 API 규격서
 :sectnums: // 문서의 목차와 관련된 항목
 :toc: left
 :toclevels: 4
@@ -8,9 +8,9 @@
 
 // 테스트 케이스로 만들어낸 Snippet 사용
 // 'include::{snippets}/Snippet이 위치한 폴더/Snippet문서 이름.adoc'
-== 사이트 API
+== 팩토리 API
 
-=== 사이트 리스트
+=== 팩토리 리스트
 
 .curl-request
 include::{snippets}/factory/list/curl-request.adoc[]
@@ -27,7 +27,7 @@ include::{snippets}/factory/list/http-response.adoc[]
 .response-fields
 include::{snippets}/factory/list/response-fields.adoc[]
 
-=== 사이트 등록
+=== 팩토리 등록
 
 .curl-request
 include::{snippets}/factory/create/curl-request.adoc[]
@@ -47,7 +47,7 @@ include::{snippets}/factory/create/http-response.adoc[]
 .response-fields
 include::{snippets}/factory/create/response-fields.adoc[]
 
-=== 사이트 수정
+=== 팩토리 수정
 
 .curl-request
 include::{snippets}/factory/modify/curl-request.adoc[]
@@ -67,7 +67,7 @@ include::{snippets}/factory/modify/http-response.adoc[]
 .response-fields
 include::{snippets}/factory/modify/response-fields.adoc[]
 
-=== 사이트 삭제
+=== 팩토리 삭제
 
 .curl-request
 include::{snippets}/factory/remove/curl-request.adoc[]
@@ -81,7 +81,7 @@ include::{snippets}/factory/remove/path-parameters.adoc[]
 .http-response
 include::{snippets}/factory/remove/http-response.adoc[]
 
-=== 사이트 모델파일 업로드
+=== 팩토리 모델파일 업로드
 
 .curl-request
 include::{snippets}/factory/model/curl-request.adoc[]

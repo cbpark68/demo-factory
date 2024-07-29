@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
 @Table(name = "facility",
         uniqueConstraints={
                 @UniqueConstraint(
-                        name="dt_facility_const1",
+                        name="facility_const1",
                         columnNames={"factory_no", "facility_name"}
                 )
         })

@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name="user")
 @NoArgsConstructor
 @Getter
-//@EqualsAndHashCode(of="userNo", callSuper = false)
 public class Member extends BaseDomain{
 
 	@Id
