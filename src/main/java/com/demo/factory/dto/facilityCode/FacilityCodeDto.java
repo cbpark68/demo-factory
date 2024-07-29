@@ -34,8 +34,8 @@ public class FacilityCodeDto {
         this.lastModifyDatetime = String.valueOf(facilityCode.getLastModifyDatetime());
     }
 
-    public FacilityCodeDto(String siteNo, String facilityCode, String facilityCodeName, String facilityCodeInfo) {
-        this.factoryNo = siteNo;
+    public FacilityCodeDto(String factoryNo, String facilityCode, String facilityCodeName, String facilityCodeInfo) {
+        this.factoryNo = factoryNo;
         this.facilityCode = facilityCode;
         this.facilityCodeName = facilityCodeName;
         this.facilityCodeInfo = facilityCodeInfo;

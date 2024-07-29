@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name="dt_user_auth")
+@Table(name="user_auth")
 @NoArgsConstructor
 public class MemberAuth extends BaseDomain{
 

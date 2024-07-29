@@ -45,9 +45,9 @@ public class MemberDto {
         this.lastModifyDatetime = String.valueOf(member.getLastModifyDatetime());
     }
 
-    public MemberDto(FactoryDtoForManager siteDtoForManager) {
-        this.userId = siteDtoForManager.getUserId();
-        this.userPw = siteDtoForManager.getUserPw();
-        this.userName = siteDtoForManager.getUserName();
+    public MemberDto(FactoryDtoForManager factoryDtoForManager) {
+        this.userId = factoryDtoForManager.getUserId();
+        this.userPw = factoryDtoForManager.getUserPw();
+        this.userName = factoryDtoForManager.getUserName();
     }
 }

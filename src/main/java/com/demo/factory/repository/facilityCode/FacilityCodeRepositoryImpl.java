@@ -18,12 +18,12 @@ public class FacilityCodeRepositoryImpl extends QuerydslRepositorySupport implem
 	}
 
 	@Override
-	public Page<FacilityCodeDtoForList> getSearchRestPage(Long siteNo, String searchType, String keyword, Pageable pageable) throws Exception {
+	public Page<FacilityCodeDtoForList> getSearchRestPage(Long factoryNo, String searchType, String keyword, Pageable pageable) throws Exception {
 		QFacilityCode facilityCode = QFacilityCode.facilityCode1;
 		JPQLQuery<FacilityCode> query = from(facilityCode);
 		query.offset(pageable.getOffset());
 		query.limit(pageable.getPageSize());
-		query.where(facilityCode.factory.factoryNo.eq(siteNo));
+		query.where(facilityCode.factory.factoryNo.eq(factoryNo));
 		query.orderBy(facilityCode.facilityCodeNo.desc());
 		List<FacilityCode> resultList = query.fetch();
 		List<FacilityCodeDtoForList> facilityCodeDtoList = resultList.stream()

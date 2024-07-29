@@ -13,15 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author cbpark68
- * Site도메인은 하나의 사이트에 하나의 첨부파일만 가능한 구조이다.
- * 본 프로젝트에서는 이를 기본기능으로 정의한다.
- * Sites도메인은 하나의 사이트에 여러개의 첨부파일이 가능한 구조이다.
- * 본 프로젝트에서는 사용하지 않지만 향후 변경될 경우에 사용할수 있다.
- */
 @Entity
-@Table(name = "dt_site")
+@Table(name = "factory")
 @NoArgsConstructor
 @Getter
 //@EqualsAndHashCode(callSuper = false)
@@ -81,9 +74,9 @@ public class Factory extends BaseDomain{
     }
 
     public Factory modify(Factory factory, FactoryDto factoryDto) {
-        String dtoSiteName = factoryDto.getFactoryName();
-        if (StringUtils.hasText(dtoSiteName)) {
-            factory.factoryName = dtoSiteName;
+        String dtoFactoryName = factoryDto.getFactoryName();
+        if (StringUtils.hasText(dtoFactoryName)) {
+            factory.factoryName = dtoFactoryName;
         }
         factory.factoryStatus = factoryDto.getFactoryStatus();
         return factory;

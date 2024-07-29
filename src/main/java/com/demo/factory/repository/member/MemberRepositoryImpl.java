@@ -18,12 +18,12 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements M
 	}
 
 	@Override
-	public Page<MemberDtoForList> getSearchRestPageV1(Long siteNo, String type, String keyword, Pageable pageable) {
+	public Page<MemberDtoForList> getSearchRestPageV1(Long factoryNo, String type, String keyword, Pageable pageable) {
 		QMember member = QMember.member;
 
 		JPQLQuery<Member> query = from(member);
 
-		query.where(member.factory.factoryNo.eq(siteNo));
+		query.where(member.factory.factoryNo.eq(factoryNo));
 		query.orderBy(member.userNo.desc());
 
 		query.offset(pageable.getOffset());

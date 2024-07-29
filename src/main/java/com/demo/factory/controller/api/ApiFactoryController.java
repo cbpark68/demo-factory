@@ -47,12 +47,12 @@ public class ApiFactoryController {
     }
 
     @PostMapping(value = {urlV0})
-    public Result create(@RequestPart(value = "factory") String siteDtoStr, @RequestPart(value = "logoFile",required = false) MultipartFile logoFile) throws Exception {
-        FactoryDtoForManager siteDtoForManager = objectMapper.readValue(siteDtoStr, FactoryDtoForManager.class);
-        siteDtoForManager.setFactoryNo(null); //생성임을 명확히 한다.
-        siteDtoForManager.setLogoFileImgName(LOGO_FILE_NAME); //dto에서는 불가하므로 외부에서 한다.
+    public Result create(@RequestPart(value = "factory") String factoryDtoStr, @RequestPart(value = "logoFile",required = false) MultipartFile logoFile) throws Exception {
+        FactoryDtoForManager factoryDtoForManager = objectMapper.readValue(factoryDtoStr, FactoryDtoForManager.class);
+        factoryDtoForManager.setFactoryNo(null); //생성임을 명확히 한다.
+        factoryDtoForManager.setLogoFileImgName(LOGO_FILE_NAME); //dto에서는 불가하므로 외부에서 한다.
 
-        Long[] resultArray = factoryService.restCreateV1(siteDtoForManager);
+        Long[] resultArray = factoryService.restCreateV1(factoryDtoForManager);
         Result result = makeResult(resultArray);
 
         if (logoFile != null && logoFile.getSize() > 0) {

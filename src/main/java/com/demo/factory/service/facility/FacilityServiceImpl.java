@@ -51,14 +51,14 @@ public class FacilityServiceImpl implements FacilityService{
     public Page<FacilityDtoForList> list(PageRequestVO pageRequestVO) throws Exception {
         String searchType = pageRequestVO.getSearchType();
         String keyword = pageRequestVO.getKeyword();
-        Long siteNo = pageRequestVO.getFactoryNo();
+        Long factoryNo = pageRequestVO.getFactoryNo();
 
         int pageNumber = pageRequestVO.getPage() - 1;
         int sizePerPage = pageRequestVO.getSize();
 
         Pageable pageRequest = PageRequest.of(pageNumber, sizePerPage, Sort.Direction.DESC, "facilityNo");
 
-        return facilityRepository.getSearchRestPage(siteNo, searchType, keyword, pageRequest);
+        return facilityRepository.getSearchRestPage(factoryNo, searchType, keyword, pageRequest);
     }
 
 }

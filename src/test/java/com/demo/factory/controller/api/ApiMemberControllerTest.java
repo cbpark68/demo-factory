@@ -101,7 +101,7 @@ class ApiMemberControllerTest {
                                         fieldWithPath("page.content[].userId").description("사용자아이디"),
                                         fieldWithPath("page.content[].userPw").description("사용자비번"),
                                         fieldWithPath("page.content[].userName").description("사용자이름"),
-                                        fieldWithPath("page.content[].auth").description("사용자권한: ROLE_SITE_USER/ROLE_SITE_MANAGER/ROLE_ADMIN"),
+                                        fieldWithPath("page.content[].auth").description("사용자권한: ROLE_FACTORY_USER/ROLE_FACTORY_MANAGER/ROLE_ADMIN"),
                                         fieldWithPath("page.content[].defaultDashboardNo").description("디폴트대시보드번호"),
                                         fieldWithPath("page.content[].createDatetime").description("최초등록일시"),
                                         fieldWithPath("page.content[].lastModifyDatetime").description("최종수정일시"),

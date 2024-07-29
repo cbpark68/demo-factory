@@ -135,13 +135,13 @@ class ApiFactoryControllerByMockMvcTest {
                                 )
                         ))
                 ).andReturn().getResponse().getContentAsString();
-        FactoryDtoForList siteDtoForList = objectMapper.treeToValue(objectMapper.readTree(resultAsString).get("page").get("content").get(0), FactoryDtoForList.class);
-        assertThat(siteDtoForList.getFactoryNo()).isNotEmpty();
-        assertThat(siteDtoForList.getFactoryName()).isNotEmpty();
-        assertThat(siteDtoForList.getFactoryStatus()).isIn(FactoryStatusEnum.ACTIVE, FactoryStatusEnum.STANDBY);
-        assertThat(siteDtoForList.getUserId()).isNotEmpty();
-        assertThat(siteDtoForList.getUserPw()).isNotEmpty();
-        assertThat(siteDtoForList.getUserName()).isNotEmpty();
+        FactoryDtoForList factoryDtoForList = objectMapper.treeToValue(objectMapper.readTree(resultAsString).get("page").get("content").get(0), FactoryDtoForList.class);
+        assertThat(factoryDtoForList.getFactoryNo()).isNotEmpty();
+        assertThat(factoryDtoForList.getFactoryName()).isNotEmpty();
+        assertThat(factoryDtoForList.getFactoryStatus()).isIn(FactoryStatusEnum.ACTIVE, FactoryStatusEnum.STANDBY);
+        assertThat(factoryDtoForList.getUserId()).isNotEmpty();
+        assertThat(factoryDtoForList.getUserPw()).isNotEmpty();
+        assertThat(factoryDtoForList.getUserName()).isNotEmpty();
     }
 
     @Test

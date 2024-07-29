@@ -10,7 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.StringUtils;
 
 @Entity
-@Table(name = "dt_facility_code")
+@Table(name = "facility_code")
 @NoArgsConstructor
 @Getter
 public class FacilityCode extends BaseDomain{

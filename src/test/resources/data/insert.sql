@@ -1,19 +1,19 @@
 use demofactory;
 
-delete from dt_facility;
-delete from dt_facility_code;
-delete from dt_user_auth;
-delete from dt_user;
-delete from dt_site;
+delete from facility;
+delete from facility_code;
+delete from user_auth;
+delete from user;
+delete from factory;
 
-insert into dt_site
+insert into factory
 (factory_no,factory_name,factory_status,logo_file_name) values
 (1,"site_admin","ACTIVE","logo.png"),
 (2,"k-factory","ACTIVE","logo.png"),
 (3,"미래학습관","ACTIVE","logo.png"),
 (4,"site-4","ACTIVE","logo.png");
 
-insert into dt_user
+insert into user
 (user_no,user_id,user_pw,user_name,factory_no) values
 (1,"admin","1234","관리자",1),
 (2,"kfactory","admin","Site Manager",2),
@@ -23,7 +23,7 @@ insert into dt_user
 (6,"site4","admin","Site Manager",4);
 
 
-insert into dt_user_auth
+insert into user_auth
 (user_auth_no,user_no,auth) values
 (1,1,"ROLE_ADMIN"),
 (2,2,"ROLE_FACTORY_MANAGER"),
@@ -32,7 +32,7 @@ insert into dt_user_auth
 (5,5,"ROLE_FACTORY_USER"),
 (6,6,"ROLE_FACTORY_MANAGER");
 
-insert into dt_facility_code
+insert into facility_code
 (facility_code_no,facility_code,facility_code_name,factory_no,facility_code_info) values
 (1,'server','서버',2,"{\"code\":\"value\",\"x\":\"0\",\"y\":\"1\"}"),
 (2,'notebook','노트북',2,"{\"code\":\"value\",\"x\":\"0\",\"y\":\"1\"}"),
@@ -41,7 +41,7 @@ insert into dt_facility_code
 (5,'notebook1','노트북',3,"{\"code\":\"value\",\"x\":\"0\",\"y\":\"1\"}"),
 (6,'car1','자동차',3,"{\"code\":\"value\",\"x\":\"0\",\"y\":\"1\"}");
 
-insert into dt_facility
+insert into facility
 (facility_no,facility_code_no,facility_name,factory_no,data_save_yn) values
 (1,1,'line1',1,'Y'),
 (2,1,'server1',1,'N'),

@@ -79,13 +79,7 @@ public class SecurityConfig {
         http
                 .securityMatcher("/api/**")
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/css/**", "/images/**", "/js/**", "/favicon.*", "/*/icon-*").permitAll()
                         .requestMatchers("/api/**").permitAll()
-//                        .requestMatchers("/api","/api/login","/api/whois").permitAll()
-//                        .requestMatchers("/api/site/**").hasAnyRole("ADMIN")
-//                        .requestMatchers("/api/user/**").hasAnyRole("ADMIN","SITE_MANAGER")
-//                        .requestMatchers("/api/dashcode/**").hasAnyRole("ADMIN")
-//                        .requestMatchers("/api/dashboard/**").hasAnyRole("ADMIN","SITE_MANAGER","SITE_USER")
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authenticationManager(authenticationManager)

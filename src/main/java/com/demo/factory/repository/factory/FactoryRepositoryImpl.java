@@ -19,7 +19,7 @@ public class FactoryRepositoryImpl extends QuerydslRepositorySupport implements 
 
 	@Override
 	public Page<Factory> getSearchPage(String searchType, String keyword, Pageable pageable) {
-		String siteName = keyword;
+		String factoryName = keyword;
 
 		QFactory factory = QFactory.factory;
 		
@@ -27,7 +27,7 @@ public class FactoryRepositoryImpl extends QuerydslRepositorySupport implements 
 		
 		if(searchType != null && !searchType.isEmpty()) {
 			if(searchType.equals("t")) {
-				query.where(factory.factoryName.like("%" + siteName +"%"));
+				query.where(factory.factoryName.like("%" + factoryName +"%"));
 				query.orderBy(factory.factoryNo.desc());
 			}
 			else {
@@ -65,13 +65,13 @@ public class FactoryRepositoryImpl extends QuerydslRepositorySupport implements 
 
 		List<Factory> resultList = query.fetch();
 
-		List<FactoryDtoForList> siteDtoList = resultList.stream()
+		List<FactoryDtoForList> factoryDtoList = resultList.stream()
 				.map(FactoryDtoForList::new)
 				.toList();
 
 		long total = query.fetchCount();
 
-		return new PageImpl<>(siteDtoList, pageable, total);
+		return new PageImpl<>(factoryDtoList, pageable, total);
 	}
 
 }

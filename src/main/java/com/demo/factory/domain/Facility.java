@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 @Entity
 @NoArgsConstructor
 @Getter
-@Table(name = "dt_facility",
+@Table(name = "facility",
         uniqueConstraints={
                 @UniqueConstraint(
                         name="dt_facility_const1",

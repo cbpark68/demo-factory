@@ -56,14 +56,14 @@ public class ControllerUtils {
         return memberRepository.findByUserId(username).orElse(new Member());
     }
 
-    public String uploadLogoFile(Long siteNo, String originalName, byte[] fileData) throws Exception {
+    public String uploadLogoFile(Long factoryNo, String originalName, byte[] fileData) throws Exception {
 //        UUID uid = UUID.randomUUID();
 //        String createdFileName = uid.toString() + "_" + originalName;
         String createdFileName = LOGO_FILE_NAME;
 
-        String siteNoStr = String.valueOf(siteNo);
-        CommonFileUtils.makeFactoryDir(LOGO_UPLOAD_PATH, siteNoStr, siteNoStr + File.separator + "logo");
-        String uploadPath = LOGO_UPLOAD_PATH + File.separator + siteNo + File.separator + "logo";
+        String factoryNoStr = String.valueOf(factoryNo);
+        CommonFileUtils.makeFactoryDir(LOGO_UPLOAD_PATH, factoryNoStr, factoryNoStr + File.separator + "logo");
+        String uploadPath = LOGO_UPLOAD_PATH + File.separator + factoryNo + File.separator + "logo";
         File target = new File(uploadPath, createdFileName);
 
         FileCopyUtils.copy(fileData, target);
@@ -71,20 +71,20 @@ public class ControllerUtils {
         return createdFileName;
     }
 
-    public String uploadModelFile(Long siteNo, String originalName, byte[] fileData) throws Exception {
-        String siteNoStr = String.valueOf(siteNo);
-        String uploadPath = MODEL_UPLOAD_PATH + File.separator + siteNo + File.separator + "model";
+    public String uploadModelFile(Long factoryNo, String originalName, byte[] fileData) throws Exception {
+        String factoryNoStr = String.valueOf(factoryNo);
+        String uploadPath = MODEL_UPLOAD_PATH + File.separator + factoryNo + File.separator + "model";
         CommonFileUtils.deleteDir(uploadPath);
-        CommonFileUtils.makeFactoryDir(MODEL_UPLOAD_PATH, siteNoStr, siteNoStr + File.separator + "model");
+        CommonFileUtils.makeFactoryDir(MODEL_UPLOAD_PATH, factoryNoStr, factoryNoStr + File.separator + "model");
         File target = new File(uploadPath, originalName);
         FileCopyUtils.copy(fileData, target);
         CommonFileUtils.unzipFile(Paths.get(uploadPath + File.separator + originalName), Paths.get(uploadPath));
         return originalName;
     }
 
-    public ResponseEntity<byte[]> getLogoFile(Long siteNo) throws Exception {
+    public ResponseEntity<byte[]> getLogoFile(Long factoryNo) throws Exception {
         ResponseEntity<byte[]> entity = null;
-        String logoFileName = factoryService.getLogoFileName(siteNo);
+        String logoFileName = factoryService.getLogoFileName(factoryNo);
 
         try {
             String formatName = logoFileName.substring(logoFileName.lastIndexOf(".") + 1);
@@ -93,7 +93,7 @@ public class ControllerUtils {
 
             HttpHeaders headers = new HttpHeaders();
 
-            File file = new File(LOGO_UPLOAD_PATH + File.separator + siteNo + File.separator + "logo" + File.separator + logoFileName);
+            File file = new File(LOGO_UPLOAD_PATH + File.separator + factoryNo + File.separator + "logo" + File.separator + logoFileName);
             if (mType != null) {
                 headers.setContentType(mType);
             }
@@ -106,11 +106,11 @@ public class ControllerUtils {
         return entity;
     }
 
-    public ResponseEntity<byte[]> getModelFile(String siteNo,String modelFileName) {
+    public ResponseEntity<byte[]> getModelFile(String factoryNo,String modelFileName) {
         ResponseEntity<byte[]> entity = null;
 
         try {
-            String url = MODEL_UPLOAD_PATH + File.separator + siteNo +File.separator + "model" + File.separator;
+            String url = MODEL_UPLOAD_PATH + File.separator + factoryNo +File.separator + "model" + File.separator;
             File file = new File(url + modelFileName);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);

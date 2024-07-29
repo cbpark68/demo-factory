@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="dt_user")
+@Table(name="user")
 @NoArgsConstructor
 @Getter
 //@EqualsAndHashCode(of="userNo", callSuper = false)
@@ -69,11 +69,11 @@ public class Member extends BaseDomain{
 		setMemberAuth(new MemberAuth(MemberAuthEnum.ROLE_FACTORY_USER));
 	}
 
-	public Member(FactoryDtoForManager siteDtoForManager) {
-		this.userId = siteDtoForManager.getUserId();
-		this.userPw = siteDtoForManager.getUserPw();
-		this.userName = siteDtoForManager.getUserName();
-		this.factory = new Factory(Long.valueOf(siteDtoForManager.getFactoryNo()));
+	public Member(FactoryDtoForManager factoryDtoForManager) {
+		this.userId = factoryDtoForManager.getUserId();
+		this.userPw = factoryDtoForManager.getUserPw();
+		this.userName = factoryDtoForManager.getUserName();
+		this.factory = new Factory(Long.valueOf(factoryDtoForManager.getFactoryNo()));
 		setMemberAuth(new MemberAuth(MemberAuthEnum.ROLE_FACTORY_MANAGER));
 	}
 
