@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id "org.asciidoctor.jvm.convert" version "3.3.2" // asciidoctor 플러그인 추가
 }
 
 group = 'com'
@@ -13,16 +14,111 @@ java {
 	}
 }
 
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+configurations {
+	asciidoctorExt
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+jar{
+	enabled = false
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	//스프링부트 기본
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security' //처음에는 막아둘것. 전부다 차단됨
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.springframework.security:spring-security-test'
+	//ModelMapper
+	implementation 'org.modelmapper:modelmapper:3.1.0'
+	//p6spy query parameter 조회
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+	//H2DB
+	implementation 'com.h2database:h2'
+	//Mysql
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	//마리아DB
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	//액추어
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	//레이아웃
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	//test 롬복 사용
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	//Querydsl 추가
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+	//mqtt,websocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	implementation 'org.springframework.integration:spring-integration-mqtt'
+	//Gson
+//	implementation 'com.google.code.gson:gson'
+	//commons-text
+	implementation 'org.apache.commons:commons-text:1.10.0'
+	//swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+	//mockMvc
+	testImplementation "org.mockito:mockito-core:2.24.0"
+	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.7'
+	//rest-docs
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 tasks.named('test') {
+	outputs.dir snippetsDir
 	useJUnitPlatform()
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	configurations 'asciidoctorExt'
+	dependsOn test
+	baseDirFollowsSourceDir()
+}
+
+bootJar {
+	dependsOn asciidoctor
+	from ("${asciidoctor.outputDir}") {
+		into 'src/main/resources/static/docs'
+	}
+}
+
+asciidoctor.doFirst { // asciidoctor Task가 수행될 때 가장 먼저 수행
+	delete file('src/main/resources/static/docs')
+}
+
+tasks.register('copyDocument', Copy) { // 생성된 html 파일을 옮긴다
+	dependsOn asciidoctor // Gradle의 asciidoctor Task 이후 수행
+	from asciidoctor.outputDir
+	into "src/main/resources/static/docs"
+}
+
+build {
+	dependsOn copyDocument // build 이후 html 파일 복사
 }
