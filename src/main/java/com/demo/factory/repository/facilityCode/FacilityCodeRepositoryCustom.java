@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface FacilityCodeRepositoryCustom {
 	
-	public Page<FacilityCodeDtoForList> getSearchRestPage(Long siteNo, String type, String keyword, Pageable pageable) throws Exception;
+	public Page<FacilityCodeDtoForList> getSearchRestPage(Long factoryNo, String type, String keyword, Pageable pageable) throws Exception;
 
 }

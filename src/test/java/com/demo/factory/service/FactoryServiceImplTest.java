@@ -38,8 +38,8 @@ class FactoryServiceImplTest {
     @DisplayName("서비스 삭제 테스트")
     void remove() throws Exception {
         factoryService.remove(2L);
-        Factory site = factoryService.find(2L);
-        assertThat(site.getFactoryNo()).isNull();
+        Factory factory = factoryService.find(2L);
+        assertThat(factory.getFactoryNo()).isNull();
         List<Member> memberByList = memberRepository.findByFactoryNo(2L);
         assertThat(memberByList.size()).isEqualTo(0);
     }
@@ -47,43 +47,43 @@ class FactoryServiceImplTest {
     @Test
     @DisplayName("서비스 등록 테스트")
     void create() throws Exception {
-        FactoryDtoForManager siteDtoForManager = new FactoryDtoForManager();
-        siteDtoForManager.setFactoryName("테스트팩토리");
-        siteDtoForManager.setFactoryStatus(FactoryStatusEnum.STANDBY);
-        siteDtoForManager.setUserId("testSiteManager");
-        siteDtoForManager.setUserPw("1234");
-        siteDtoForManager.setUserName("테스트매니저");
+        FactoryDtoForManager factoryDtoForManager = new FactoryDtoForManager();
+        factoryDtoForManager.setFactoryName("테스트팩토리");
+        factoryDtoForManager.setFactoryStatus(FactoryStatusEnum.STANDBY);
+        factoryDtoForManager.setUserId("testFactoryManager");
+        factoryDtoForManager.setUserPw("1234");
+        factoryDtoForManager.setUserName("테스트매니저");
 
-        Long[] results = factoryService.restCreateV1(siteDtoForManager);
-        Long siteNo = results[0];
+        Long[] results = factoryService.restCreateV1(factoryDtoForManager);
+        Long factoryNo = results[0];
         Long userNo = results[1];
 
-        Factory savedSite = factoryService.find(siteNo);
-        assertThat(savedSite.getFactoryName()).isEqualTo("테스트팩토리");
-        assertThat(savedSite.getFactoryStatus()).isEqualTo(FactoryStatusEnum.STANDBY);
+        Factory savedFactory = factoryService.find(factoryNo);
+        assertThat(savedFactory.getFactoryName()).isEqualTo("테스트팩토리");
+        assertThat(savedFactory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.STANDBY);
 
-        Member member = memberRepository.findByUserId("testSiteManager").orElse(new Member());
+        Member member = memberRepository.findByUserId("testFactoryManager").orElse(new Member());
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //등록된 사용자는 반드시 팩토리관리자 권한을 가져야 한다.
     }
     @Test
     @DisplayName("서비스 수정 테스트")
     void modify() throws Exception {
-        Factory site = factoryService.find(2L);
+        Factory factory = factoryService.find(2L);
         Member member = memberService.find(2L);
-        FactoryDtoForManager siteDtoForManager = new FactoryDtoForManager(site, member);
-        siteDtoForManager.setFactoryName("변경됨");
-        siteDtoForManager.setFactoryStatus(FactoryStatusEnum.ACTIVE); //팩토리상태는 변경되면 안된다.
-        siteDtoForManager.setUserPw("12341234");
-        siteDtoForManager.setUserName("변경됨");
+        FactoryDtoForManager factoryDtoForManager = new FactoryDtoForManager(factory, member);
+        factoryDtoForManager.setFactoryName("변경됨");
+        factoryDtoForManager.setFactoryStatus(FactoryStatusEnum.ACTIVE); //팩토리상태는 변경되면 안된다.
+        factoryDtoForManager.setUserPw("12341234");
+        factoryDtoForManager.setUserName("변경됨");
 
-        Long[] results = factoryService.restModifyV1(siteDtoForManager);
-        Long siteNo = results[0];
+        Long[] results = factoryService.restModifyV1(factoryDtoForManager);
+        Long factoryNo = results[0];
         Long userNo = results[1];
 
-        Factory findSite = factoryService.find(siteNo);
-        assertThat(findSite.getFactoryName()).isEqualTo("변경됨");
-        assertThat(findSite.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE);
+        Factory findFactory = factoryService.find(factoryNo);
+        assertThat(findFactory.getFactoryName()).isEqualTo("변경됨");
+        assertThat(findFactory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE);
 
         Member member2 = memberRepository.findByUserId("kfactory").orElse(new Member());
         assertThat(member2.getUserName()).isEqualTo("변경됨");
@@ -94,8 +94,8 @@ class FactoryServiceImplTest {
     @Test
     @DisplayName("서비스 조회 테스트")
     void find() throws Exception {
-        Factory site = factoryService.find(2L);
-        List<Member> memberList = memberRepository.findByFactoryNo(site.getFactoryNo());
+        Factory factory = factoryService.find(2L);
+        List<Member> memberList = memberRepository.findByFactoryNo(factory.getFactoryNo());
         assertThat(memberList.size()).isEqualTo(2);
     }
 

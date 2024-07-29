@@ -33,14 +33,14 @@ public class MemberDto {
         this.lastModifyDatetime = String.valueOf(member.getLastModifyDatetime());
     }
 
-    public MemberDto(Member member, FactoryDtoForLogin siteDtoForLogin) {
+    public MemberDto(Member member, FactoryDtoForLogin factoryDtoForLogin) {
         this.userNo = String.valueOf(member.getUserNo());
         this.userId = member.getUserId();
         this.userPw = member.getUserPw();
         this.userName = member.getUserName();
         this.defaultDashboardNo = member.getDefaultDashboardNo();
         this.auth = member.getAuthList().get(0).getAuth();
-        this.factory = siteDtoForLogin;
+        this.factory = factoryDtoForLogin;
         this.createDatetime = String.valueOf(member.getCreateDatetime());
         this.lastModifyDatetime = String.valueOf(member.getLastModifyDatetime());
     }

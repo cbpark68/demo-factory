@@ -65,15 +65,15 @@ public class ApiFactoryController {
     }
 
     @PutMapping(value = {urlV0})
-    public Result modify(@RequestPart(value = "factory") String siteDtoStr, @RequestPart(value = "logoFile",required = false) MultipartFile logoFile) throws Exception {
-        FactoryDtoForManager siteDtoForManager = objectMapper.readValue(siteDtoStr, FactoryDtoForManager.class);
+    public Result modify(@RequestPart(value = "factory") String factoryDtoStr, @RequestPart(value = "logoFile",required = false) MultipartFile logoFile) throws Exception {
+        FactoryDtoForManager factoryDtoForManager = objectMapper.readValue(factoryDtoStr, FactoryDtoForManager.class);
         if (logoFile != null && logoFile.getSize() > 0) {
-            String fileName = controllerUtils.uploadLogoFile(Long.valueOf(siteDtoForManager.getFactoryNo()), logoFile.getOriginalFilename(), logoFile.getBytes());
+            String fileName = controllerUtils.uploadLogoFile(Long.valueOf(factoryDtoForManager.getFactoryNo()), logoFile.getOriginalFilename(), logoFile.getBytes());
             if (fileName == null) {
                 throw new LogoFileException("로그파일 등록오류 발생");
             }
         }
-        Long[] resultArray = factoryService.restModifyV1(siteDtoForManager);
+        Long[] resultArray = factoryService.restModifyV1(factoryDtoForManager);
         return makeResult(resultArray);
     }
 
@@ -106,9 +106,9 @@ public class ApiFactoryController {
     }
 
     private Result makeResult(Long[] resultArray) throws Exception {
-        String siteNo = String.valueOf(resultArray[0]);
+        String factoryNo = String.valueOf(resultArray[0]);
         String userNo = String.valueOf(resultArray[1]);
-        return new Result(siteNo,userNo);
+        return new Result(factoryNo,userNo);
     }
 
 }

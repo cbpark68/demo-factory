@@ -395,7 +395,7 @@ class ApiMemberControllerTest {
 
         Result result = objectMapper.readValue(contentAsString, Result.class);
         Member member = memberService.find(Long.valueOf(result.userNo));
-        assertThat(member.getUserName()).isEqualTo("Site Manager");
+        assertThat(member.getUserName()).isEqualTo("Factory Manager");
         assertThat(member.getUserPw()).isEqualTo("admin");
         assertThat(member.getFactory().getFactoryNo()).isEqualTo(2);
         assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 변경되지 않아야 한다.

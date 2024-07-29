@@ -16,11 +16,11 @@ insert into factory
 insert into user
 (user_no,user_id,user_pw,user_name,factory_no) values
 (1,"admin","1234","관리자",1),
-(2,"kfactory","admin","Site Manager",2),
-(3,"sfactory","admin","Site Manager",3),
-(4,"kfactory1","admin","Site User",2),
-(5,"sfactory1","admin","Site User",3),
-(6,"site4","admin","Site Manager",4);
+(2,"kfactory","admin","Factory Manager",2),
+(3,"sfactory","admin","Factory Manager",3),
+(4,"kfactory1","admin","Factory User",2),
+(5,"sfactory1","admin","Factory User",3),
+(6,"site4","admin","Factory Manager",4);
 
 
 insert into user_auth

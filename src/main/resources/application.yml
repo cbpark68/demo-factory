@@ -58,7 +58,7 @@ com:
     stomp:
       endpoint: /ws
       destination-prefixes: /app
-      site: /dt/factory
+      factory: /dt/factory
 management:
   endpoints:
     web:

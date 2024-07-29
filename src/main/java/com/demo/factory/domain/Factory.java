@@ -62,8 +62,8 @@ public class Factory extends BaseDomain{
     }
 
     public Factory(FactoryDtoForManager factoryDtoForManager) {
-        String dtoSiteNo = factoryDtoForManager.getFactoryNo();
-        if (StringUtils.hasText(dtoSiteNo)) {
+        String dtoFactoryNo = factoryDtoForManager.getFactoryNo();
+        if (StringUtils.hasText(dtoFactoryNo)) {
             this.factoryNo = Long.valueOf(factoryDtoForManager.getFactoryNo());
         } else {
             this.factoryNo = null;

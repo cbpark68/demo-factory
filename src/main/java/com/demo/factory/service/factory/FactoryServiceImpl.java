@@ -66,19 +66,19 @@ public class FactoryServiceImpl implements FactoryService {
     public Long formModify(FactoryDto factoryDto) throws Exception {
         //변경감지로 save()호출 없음
         //폼에서 db업데이트는 상태만 가능
-        Factory oldSite = factoryRepository.findByPk(Long.valueOf(factoryDto.getFactoryNo())).orElse(new Factory());
-        Factory newSite = new Factory().modify(oldSite, factoryDto);
-        return newSite.getFactoryNo();
+        Factory oldFactory = factoryRepository.findByPk(Long.valueOf(factoryDto.getFactoryNo())).orElse(new Factory());
+        Factory newFactory = new Factory().modify(oldFactory, factoryDto);
+        return newFactory.getFactoryNo();
     }
 
     @Override
     public Long[] restModifyV1(FactoryDtoForManager factoryDtoForManager) throws Exception {
         //변경감지로 save()호출 없음
-        Factory oldSite = factoryRepository.findByPk(Long.valueOf(factoryDtoForManager.getFactoryNo())).orElse(new Factory());
-        Factory newSite = new Factory().modify(oldSite, factoryDtoForManager);
+        Factory oldFactory = factoryRepository.findByPk(Long.valueOf(factoryDtoForManager.getFactoryNo())).orElse(new Factory());
+        Factory newFactory = new Factory().modify(oldFactory, factoryDtoForManager);
         Member oldMember = memberRepository.findByUserIdAndFactoryNo(factoryDtoForManager.getUserId(), Long.valueOf(factoryDtoForManager.getFactoryNo())).orElse(new Member());
         Member newMember = new Member().modify(oldMember, new MemberDto(factoryDtoForManager));
-        return new Long[]{newSite.getFactoryNo(), newMember.getUserNo()};
+        return new Long[]{newFactory.getFactoryNo(), newMember.getUserNo()};
     }
 
     @Override
@@ -109,8 +109,8 @@ public class FactoryServiceImpl implements FactoryService {
 
         Pageable pageRequest = PageRequest.of(pageNumber, sizePerPage, Sort.Direction.DESC, "factoryNo");
 
-        Page<FactoryDtoForList> siteDtoForList = factoryRepository.getSearchRestPageV1(searchType, keyword, pageRequest);
-        siteDtoForList.getContent().forEach(content -> {
+        Page<FactoryDtoForList> factoryDtoForList = factoryRepository.getSearchRestPageV1(searchType, keyword, pageRequest);
+        factoryDtoForList.getContent().forEach(content -> {
             try {
                 content.setFactoryManager(memberService.findFactoryManager(Long.valueOf(content.getFactoryNo())));
             } catch (Exception e) {
@@ -118,26 +118,26 @@ public class FactoryServiceImpl implements FactoryService {
             }
         });
 
-        return siteDtoForList;
+        return factoryDtoForList;
     }
 
     @Override
     public String getLogoFileName(Long factoryNo) {
-        Factory site = factoryRepository.findByPk(factoryNo).orElse(new Factory());
-        return site.getLogoFileName();
+        Factory factory = factoryRepository.findByPk(factoryNo).orElse(new Factory());
+        return factory.getLogoFileName();
     }
 
 
-    private void removeFacility(Long siteNo) {
-        facilityRepository.deleteByFactoryNo(siteNo);
+    private void removeFacility(Long factoryNo) {
+        facilityRepository.deleteByFactoryNo(factoryNo);
     }
 
-    private void removeFacilityCode(Long siteNo) {
-        List<FacilityCode> facilityCodeList = facilityCodeRepository.findByFactoryNo(siteNo);
+    private void removeFacilityCode(Long factoryNo) {
+        List<FacilityCode> facilityCodeList = facilityCodeRepository.findByFactoryNo(factoryNo);
         for (FacilityCode facilityCode : facilityCodeList) {
             facilityRepository.deleteByFacilityCodeNo(facilityCode.getFacilityCodeNo());
         }
-        facilityCodeRepository.deleteByFactoryNo(siteNo);
+        facilityCodeRepository.deleteByFactoryNo(factoryNo);
     }
 
 

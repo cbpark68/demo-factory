@@ -154,14 +154,14 @@ class ApiFactoryControllerByMockMvcTest {
         factoryDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
         factoryDto.setFactoryName("테스트팩토리");
         factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        factoryDto.setUserId("testSiteManager");
+        factoryDto.setUserId("testFactoryManager");
         factoryDto.setUserPw("1234");
         factoryDto.setUserName("테스트매니저");
 
-        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
+        String factoryDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
-        MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
-                siteDtoAsString.getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
+                factoryDtoAsString.getBytes(StandardCharsets.UTF_8));
 
         MockMultipartFile logoFilePart = new MockMultipartFile(
                 "logoFile","min_logo.png","multipart/form-data",
@@ -169,7 +169,7 @@ class ApiFactoryControllerByMockMvcTest {
 
         String contentAsString = mockMvc.perform(multipart(url) //method: create
                         .file(logoFilePart)
-                        .file(sitePart)
+                        .file(factoryPart)
                         .contentType("multipart/form-data"))
                 .andExpect(status().is2xxSuccessful())
                 .andDo(document("/factory/create",
@@ -204,7 +204,7 @@ class ApiFactoryControllerByMockMvcTest {
         assertThat(factory.getFactoryName()).isEqualTo("테스트팩토리");
         assertThat(factory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE);
         Member member = memberService.find(Long.valueOf(result.userNo));
-        assertThat(member.getUserId()).isEqualTo("testSiteManager");
+        assertThat(member.getUserId()).isEqualTo("testFactoryManager");
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getUserPw()).isEqualTo("1234");
         assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
@@ -230,7 +230,7 @@ class ApiFactoryControllerByMockMvcTest {
 
         String strDtoForString = objectMapper.writeValueAsString(factoryDto);
 
-        MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
+        MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
                 strDtoForString.getBytes(StandardCharsets.UTF_8));
 
         MockMultipartFile logoFilePart = new MockMultipartFile(
@@ -249,7 +249,7 @@ class ApiFactoryControllerByMockMvcTest {
 
         String contentAsString = mockMvc.perform(builder  //method: modify
                         .file(logoFilePart)
-                        .file(sitePart)
+                        .file(factoryPart)
                         .contentType("multipart/form-data"))
                 .andExpect(status().is2xxSuccessful())
                 .andDo(document("/factory/modify",
@@ -380,14 +380,14 @@ class ApiFactoryControllerByMockMvcTest {
         factoryDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
         factoryDto.setFactoryName("테스트팩토리");
         factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        factoryDto.setUserId("testSiteManager");
+        factoryDto.setUserId("testFactoryManager");
         factoryDto.setUserPw("1234");
         factoryDto.setUserName("테스트매니저");
 
-        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
+        String factoryDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
         MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
-                siteDtoAsString.getBytes(StandardCharsets.UTF_8));
+                factoryDtoAsString.getBytes(StandardCharsets.UTF_8));
 
         String contentAsString = mockMvc.perform(multipart(url) //method: create
                         .file(factoryPart)
@@ -400,7 +400,7 @@ class ApiFactoryControllerByMockMvcTest {
         assertThat(factory.getFactoryName()).isEqualTo("테스트팩토리");
         assertThat(factory.getFactoryStatus()).isEqualTo(FactoryStatusEnum.ACTIVE);
         Member member = memberService.find(Long.valueOf(result.userNo));
-        assertThat(member.getUserId()).isEqualTo("testSiteManager");
+        assertThat(member.getUserId()).isEqualTo("testFactoryManager");
         assertThat(member.getUserName()).isEqualTo("테스트매니저");
         assertThat(member.getUserPw()).isEqualTo("1234");
         assertThat(member.getAuthList().get(0).getAuth()).isEqualTo(MemberAuthEnum.ROLE_FACTORY_MANAGER); //사용자권한은 반드시 팩토리매니저이어야 함
@@ -465,14 +465,14 @@ class ApiFactoryControllerByMockMvcTest {
         factoryDto.setFactoryNo("99999"); //팩토리번호는 무시되어야 한다.
         factoryDto.setFactoryName("테스트팩토리");
         factoryDto.setFactoryStatus(FactoryStatusEnum.ACTIVE);
-        factoryDto.setUserId("testSiteManager");
+        factoryDto.setUserId("testFactoryManager");
         factoryDto.setUserPw("1234"); //공백일수 없다.
         factoryDto.setUserName(""); //공백일수 없다.
 
-        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
+        String factoryDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
         MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
-                siteDtoAsString.getBytes(StandardCharsets.UTF_8));
+                factoryDtoAsString.getBytes(StandardCharsets.UTF_8));
 
         String contentAsString = mockMvc.perform(multipart(url) //method: create
                         .file(factoryPart)
@@ -494,10 +494,10 @@ class ApiFactoryControllerByMockMvcTest {
 
         FactoryDtoForManager factoryDto = new FactoryDtoForManager();
 
-        String siteDtoAsString = objectMapper.writeValueAsString(factoryDto);
+        String factoryDtoAsString = objectMapper.writeValueAsString(factoryDto);
 
-        MockMultipartFile sitePart = new MockMultipartFile("factory", "", "application/json",
-                siteDtoAsString.getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile factoryPart = new MockMultipartFile("factory", "", "application/json",
+                factoryDtoAsString.getBytes(StandardCharsets.UTF_8));
 
         MockMultipartFile logoFilePart = new MockMultipartFile(
                 "logoFile","logo0001.png","multipart/form-data",
@@ -505,7 +505,7 @@ class ApiFactoryControllerByMockMvcTest {
 
         String contentAsString = mockMvc.perform(multipart(url) //method: create
                         .file(logoFilePart)
-                        .file(sitePart)
+                        .file(factoryPart)
                         .contentType("multipart/form-data"))
                 .andExpect(status().is5xxServerError())
                 .andReturn().getResponse().getContentAsString();

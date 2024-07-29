@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Page<MemberDtoForList> restListV1(PageRequestVO pageRequestVO) throws Exception {
-		Long siteNo = pageRequestVO.getFactoryNo();
+		Long factoryNo = pageRequestVO.getFactoryNo();
 		String searchType = pageRequestVO.getSearchType();
 		String keyword = pageRequestVO.getKeyword();
 
@@ -100,15 +100,15 @@ public class MemberServiceImpl implements MemberService {
 
 		Pageable pageRequest = PageRequest.of(pageNumber, sizePerPage, Sort.Direction.DESC, "factoryNo");
 
-		return memberRepository.getSearchRestPageV1(siteNo,searchType, keyword, pageRequest);
+		return memberRepository.getSearchRestPageV1(factoryNo,searchType, keyword, pageRequest);
 	}
 
 	@Override
 	public MemberDto findDtoByUserId(String userId) throws Exception {
 		Member member = memberRepository.findByUserId(userId).orElse(new Member());
-		Factory site = factoryRepository.findByPk(member.getFactory().getFactoryNo()).orElse(new Factory());
-		FactoryDtoForLogin siteDtoForLogin = new FactoryDtoForLogin(site);
-		return new MemberDto(member,siteDtoForLogin);
+		Factory factory = factoryRepository.findByPk(member.getFactory().getFactoryNo()).orElse(new Factory());
+		FactoryDtoForLogin factoryDtoForLogin = new FactoryDtoForLogin(factory);
+		return new MemberDto(member,factoryDtoForLogin);
 	}
 
 	@Override

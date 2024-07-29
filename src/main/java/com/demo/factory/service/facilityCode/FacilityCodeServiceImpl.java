@@ -37,8 +37,8 @@ public class FacilityCodeServiceImpl implements FacilityCodeService{
     public Long modify(FacilityCodeDto facilityCodeDto) throws Exception {
         //변경감지로 save()호출 없음
         Long facilityCodeNo = Long.valueOf(facilityCodeDto.getFacilityCodeNo());
-        Long siteNo = Long.valueOf(facilityCodeDto.getFactoryNo());
-        FacilityCode oldFacilityCode = facilityCodeRepository.findByPkAndFactoryNo(facilityCodeNo, siteNo).orElse(new FacilityCode());
+        Long factoryNo = Long.valueOf(facilityCodeDto.getFactoryNo());
+        FacilityCode oldFacilityCode = facilityCodeRepository.findByPkAndFactoryNo(facilityCodeNo, factoryNo).orElse(new FacilityCode());
         FacilityCode newFacilityCode = new FacilityCode().modify(oldFacilityCode, facilityCodeDto);
         return newFacilityCode.getFacilityCodeNo();
     }
@@ -53,14 +53,14 @@ public class FacilityCodeServiceImpl implements FacilityCodeService{
     public Page<FacilityCodeDtoForList> list(PageRequestVO pageRequestVO) throws Exception {
         String searchType = pageRequestVO.getSearchType();
         String keyword = pageRequestVO.getKeyword();
-        Long siteNo = pageRequestVO.getFactoryNo();
+        Long factoryNo = pageRequestVO.getFactoryNo();
 
         int pageNumber = pageRequestVO.getPage() - 1;
         int sizePerPage = pageRequestVO.getSize();
 
         Pageable pageRequest = PageRequest.of(pageNumber, sizePerPage, Sort.Direction.DESC, "facilityCodeNo");
 
-        return facilityCodeRepository.getSearchRestPage(siteNo, searchType, keyword, pageRequest);
+        return facilityCodeRepository.getSearchRestPage(factoryNo, searchType, keyword, pageRequest);
     }
 
 }
