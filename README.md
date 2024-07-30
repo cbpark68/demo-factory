@@ -27,11 +27,8 @@
 ![테스트케이스](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BC%80%EC%9D%B4%EC%8A%A4.png)
 
 ERD
-
-팩토리 - factory
-
-사용자 - user
-
-설비 - facility
+- 팩토리 - factory
+- 사용자 - user
+- 설비 - facility
 
 ![ERD](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/ERD.png)
