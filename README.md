@@ -25,11 +25,13 @@
 
 ## 테스트케이스 실행화면
 - 다양한 케이스를 테스트하여 오류를 최소화합니다.
+  
 ![테스트케이스](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BC%80%EC%9D%B4%EC%8A%A4.png)
 
 ## REST-DOC을 이용한 문서 자동화
 - REST-DOC을 이용하여 API문서생성을 자동화합니다.
 - 다양한 케이스의 테스트 중에서 문서화할 필요한 케이스를 대상으로 문서화 작업을 구현합니다.
+  
 ![API규격서1](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC1.png)
 
 ![API규격서2](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC2.png)
@@ -47,5 +49,6 @@
 - 팩토리 - factory
 - 사용자 - user
 - 설비 - facility
+
 ![ERD](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/ERD.png)
 
