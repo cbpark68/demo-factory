@@ -51,6 +51,7 @@
 - 팩토리 - factory
 - 사용자 - user
 - 설비 - facility
+- 테이블간 릴레이션은 JPA의 다대일 관계를 기본으로 구현했습니다.
 
 ![ERD](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/ERD.png)
 
