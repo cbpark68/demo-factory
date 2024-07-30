@@ -39,6 +39,8 @@
 ## REST-DOC을 이용한 문서 자동화
 - REST-DOC을 이용하여 API문서생성을 자동화합니다.
 - 다양한 케이스의 테스트 중에서 문서화할 필요한 케이스를 대상으로 문서화 작업을 구현합니다.
+
+[API규격서 전체](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/docs/index.html)
   
 ![API규격서1](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC1.png)
 
