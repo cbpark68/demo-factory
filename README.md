@@ -31,6 +31,9 @@
 
 ![API규격서2](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC2.png)
 
+## Swagger-ui를 이용한 문서 자동화
+![Swagger-ui](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/Swagger-ui.png)
+
 ## REST-DOC VS Swagger-ui
 - 이 프로젝트에는 REST-DOC 뿐 아니라 Swagger-ui도 이미 구현되어 있습니다.
 - 그러나 문서자동화는 REST-DOC을 이용했습니다.
