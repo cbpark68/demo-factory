@@ -30,6 +30,12 @@
   
 ![테스트케이스](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BC%80%EC%9D%B4%EC%8A%A4.png)
 
+## REST-DOC VS Swagger-ui
+- 이 프로젝트에는 REST-DOC 뿐 아니라 Swagger-ui도 이미 구현되어 있습니다.
+- 그러나 문서자동화는 REST-DOC을 이용했습니다.
+- Swagger-ui는 컨트롤러에 등록된 모든 API가 조회되고 추가적인 어노테이션으로 소스가 상당히 지저분해집니다.
+- 반면 REST-DOC은 API를 선택할수 있고 테스트를 통과해야만 작성되므로 관리가 더 용이합니다.
+
 ## REST-DOC을 이용한 문서 자동화
 - REST-DOC을 이용하여 API문서생성을 자동화합니다.
 - 다양한 케이스의 테스트 중에서 문서화할 필요한 케이스를 대상으로 문서화 작업을 구현합니다.
@@ -40,12 +46,6 @@
 
 ## Swagger-ui를 이용한 문서 자동화
 ![Swagger-ui](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/Swagger-ui.png)
-
-## REST-DOC VS Swagger-ui
-- 이 프로젝트에는 REST-DOC 뿐 아니라 Swagger-ui도 이미 구현되어 있습니다.
-- 그러나 문서자동화는 REST-DOC을 이용했습니다.
-- Swagger-ui는 컨트롤러에 등록된 모든 API가 조회되고 추가적인 어노테이션으로 소스가 상당히 지저분해집니다.
-- 반면 REST-DOC은 API를 선택할수 있고 테스트를 통과해야만 작성되므로 관리가 더 용이합니다.
 
 ## ERD
 - 팩토리 - factory
