@@ -18,8 +18,8 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("Digitaltwin REST-API")
-                .description("프리즘브릿지 디지털트윈 API 규격")
+                .title("Demo Factory REST-API")
+                .description("데모 팩토리 API 규격")
                 .version("1.0.0");
     }
 }
