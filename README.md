@@ -47,6 +47,9 @@
 ![API규격서2](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC2.png)
 
 ## Swagger-ui를 이용한 문서 자동화
+- 컨드롤러에 등록된 모든 url호출이 조회됩니다. 만일 내부적으로 관리하는 구버전이 있어도 출력됩니다.
+- 포스트맨처럼 url을 호출하고 테스트할 수 있습니다. 그러나 전반적으로 포스트맨보다 불편합니다.
+- 따라서 Swagger-ui를 자주 사용하지 않지만 전체 컨트롤러를 한번에 조회할수 있어 가끔씩 사용합니다. 
 ![Swagger-ui](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/Swagger-ui.png)
 
 ## ERD
