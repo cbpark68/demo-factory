@@ -6,6 +6,8 @@
 - 생산시설인 팩토리의 사용자와 생산설비의 정보를 REST-API 서비스합니다.
 - 기본적인 테스트 케이스외 예외적인 상황을 대비한 다양한 테스트 케이스를 구현했습니다.
 - REST-DOC을 이용해서 테스트케이스를 통해 REST-API 규격 문서를 자동으로 생성합니다.
+
+## 프로젝트 구현 전략
 - 컨트롤러에서 DTO를 서비스로 전달하면 서비스는 요청에 맞는 DTO 또는 엔티티를 리턴합니다.
 - 엔티티는 서비스와 JPA에서만 정상적으로 이용하고 서비스를 벗어나면 제한된 이용만 가능합니다.
 - open-in-view = false 설정을 통해서 서비스단계를 벗어나면 트랜잭션을 반납하도록 해서 커낵션풀을 효율적으로 관리합니다.
@@ -24,12 +26,9 @@
 - 제가 테이블 감사기능을 이해하고 구현할수 있음을 보여드립니다.
 
 ## 테스트케이스 실행화면
+- 다양한 케이스를 테스트하여 오류를 최소화합니다.
+  
 ![테스트케이스](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BC%80%EC%9D%B4%EC%8A%A4.png)
-
-## REST-DOC을 이용한 문서 자동화
-![API규격서1](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC1.png)
-
-![API규격서2](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC2.png)
 
 ## REST-DOC VS Swagger-ui
 - 이 프로젝트에는 REST-DOC 뿐 아니라 Swagger-ui도 이미 구현되어 있습니다.
@@ -37,9 +36,27 @@
 - Swagger-ui는 컨트롤러에 등록된 모든 API가 조회되고 추가적인 어노테이션으로 소스가 상당히 지저분해집니다.
 - 반면 REST-DOC은 API를 선택할수 있고 테스트를 통과해야만 작성되므로 관리가 더 용이합니다.
 
+## REST-DOC을 이용한 문서 자동화
+- REST-DOC을 이용하여 API문서생성을 자동화합니다.
+- 다양한 케이스의 테스트 중에서 문서화할 필요한 케이스를 대상으로 문서화 작업을 구현합니다.
+
+[API규격서 전체](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/docs/index.html)
+  
+![API규격서1](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC1.png)
+
+![API규격서2](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/REST-DOC2.png)
+
+## Swagger-ui를 이용한 문서 자동화
+- 컨드롤러에 등록된 모든 url호출이 조회됩니다. 만일 내부적으로 관리하는 구버전이 있어도 출력됩니다.
+- 포스트맨처럼 url을 호출하고 테스트할 수 있습니다. 그러나 전반적으로 포스트맨보다 불편합니다.
+- 따라서 Swagger-ui를 자주 사용하지 않지만 전체 컨트롤러를 한번에 조회할수 있어 가끔씩 사용합니다. 
+![Swagger-ui](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/Swagger-ui.png)
+
 ## ERD
 - 팩토리 - factory
 - 사용자 - user
 - 설비 - facility
+- 테이블간 릴레이션은 JPA의 다대일 관계를 기본으로 구현했습니다.
+
 ![ERD](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/ERD.png)
 
