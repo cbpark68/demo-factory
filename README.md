@@ -62,3 +62,6 @@
 
 ![ERD](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/ERD.png)
 
+## 내가 생각하는 객체와 테이블의 차이
+- 객체는 3D 카티아
+- 테이블은 2D 오토케드
