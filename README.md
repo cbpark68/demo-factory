@@ -9,7 +9,7 @@
 
 ## 프로젝트 구현 전략
 - 컨트롤러에서 DTO를 서비스로 전달하면 서비스는 요청에 맞는 DTO 또는 엔티티를 리턴합니다.
-- 엔티티는 서비스와 JPA에서만 정상적으로 이용하고 서비스를 벗어나면 제한된 이용만 가능합니다.
+- 엔티티는 서비스와 JPA에서만 정상적으로 이용하고 서비스를 벗어나면 객체그래프가 작동하지 않으니 제한된 이용만 가능합니다.
 - open-in-view = false 설정을 통해서 서비스단계를 벗어나면 트랜잭션을 반납하도록 해서 커낵션풀을 효율적으로 관리합니다.
 ![MVC데이터흐름도](https://github.com/cbpark68/demo-factory/blob/main/src/main/resources/static/images/MVC%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%9D%90%EB%A6%84%EB%8F%84.png)
 - 엔티티는 Setter를 모두 제거하고 별도의 modify메소드를 통해서만 수정하도록 했습니다.
